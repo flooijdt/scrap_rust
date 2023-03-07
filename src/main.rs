@@ -6,7 +6,7 @@ async fn main() {
     let req = reqwest::get(url).await.unwrap().text();
 
     let body = Html::parse_document(&req.await.unwrap());
-    let matter = Selector::parse("h2").unwrap();
+    let matter = Selector::parse("li").unwrap();
 
     for m in body.select(&matter) {
         let matters = m.text().collect::<Vec<_>>();
