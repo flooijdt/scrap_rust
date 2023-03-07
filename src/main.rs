@@ -4,10 +4,9 @@ use scraper::{Html, Selector};
 async fn main() {
     let url: &str = "https://roadmap.sh/blockchain";
     let req = reqwest::get(url).await.unwrap().text();
-    // println!("{:?}", &req.unwrap().text_with_charset("utf-8"));
 
     let body = Html::parse_document(&req.await.unwrap());
-    let matter = Selector::parse(".h5").unwrap();
+    let matter = Selector::parse("h2").unwrap();
 
     for m in body.select(&matter) {
         let matters = m.text().collect::<Vec<_>>();
