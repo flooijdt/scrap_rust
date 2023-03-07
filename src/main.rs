@@ -7,7 +7,7 @@ async fn main() {
     let url: &str = "https://helix-editor.com/";
     let mut req = reqwest::get(url).await;
 
-    let body = Html::parse_document(&req.text().unwrap());
+    let body = Html::parse_document(&req.unwrap().text());
     let matter = Selector::parse(".matter").unwrap();
 
     for m in body.select(&matter) {
