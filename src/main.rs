@@ -3,11 +3,7 @@ use scraper::{Html, Selector};
 use tokio;
 
 #[tokio::main]
-fn main() {
-    scrapfunc();
-}
-
-async fn scrapfunc() {
+async fn main() {
     let url: &str = "https://helix-editor.com/";
     let mut req = reqwest::get(url).await;
 
