@@ -1,9 +1,15 @@
 use reqwest;
 use scraper::{Html, Selector};
+use tokio;
 
+#[tokio::main]
 fn main() {
+    scrapfunc();
+}
+
+async fn scrapfunc() {
     let url: &str = "https://helix-editor.com/";
-    let mut req = reqwest::get(url).unwrap();
+    let mut req = reqwest::get(url).await;
 
     let body = Html::parse_document(&req.text().unwrap());
     let matter = Selector::parse(".matter").unwrap();
