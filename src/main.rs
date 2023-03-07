@@ -1,15 +1,13 @@
-use reqwest;
 use scraper::{Html, Selector};
-use tokio;
 
 #[tokio::main]
 async fn main() {
-    let url: &str = "https://helix-editor.com/";
-    let mut req = reqwest::get(url).await;
+    let url: &str = "https://roadmap.sh/blockchain";
+    let req = reqwest::get(url).await.unwrap().text();
     // println!("{:?}", &req.unwrap().text_with_charset("utf-8"));
 
-    let body = Html::parse_document(&req.unwrap().text_with_charset("utf-8"));
-    let matter = Selector::parse(".matter").unwrap();
+    let body = Html::parse_document(&req.await.unwrap());
+    let matter = Selector::parse(".clickable-group ").unwrap();
 
     for m in body.select(&matter) {
         let matters = m.text().collect::<Vec<_>>();
